@@ -86,7 +86,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
         controller: 'AccountCtrl'
       }
     }
-  });
+  })
+  .state('checkcart', {
+    url: '/cart',
+    templateUrl: 'templates/showcart.html',
+    controller: 'CartCtrl'
+  })
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/sign-in');

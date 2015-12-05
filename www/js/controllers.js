@@ -1,4 +1,4 @@
-angular.module('starter.controllers', [])
+angular.module('starter.controllers', ['ngCart'])
 
 .controller('SignInCtrl', function($scope, $state) {
   
@@ -10,6 +10,13 @@ angular.module('starter.controllers', [])
 })
 
 .controller('DashCtrl', function($scope) {})
+.controller('CartCtrl', function($scope,ngCart) {
+  $scope.title="Cart Page"
+  $scope.payMoney = function(){
+    console.log("This data has to send for the server >>>"+JSON.stringify(ngCart.toObject()));
+  }
+})
+
 
 .controller('ChatsCtrl', function($scope, Chats) {
   // With the new view caching in Ionic, Controllers are only called
@@ -26,8 +33,12 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
+.controller('ChatDetailCtrl', function($scope, $stateParams, Chats,Cusines,ngCart) {
   $scope.chat = Chats.get($stateParams.chatId);
+  $scope.food_details = Cusines.all();
+  $scope.cartColor = (ngCart.$cart.items.length)?true:false;
+    ngCart.setTaxRate(7.5);
+    ngCart.setShipping(2.99);  
 })
 
 .controller('AccountCtrl', function($scope) {
