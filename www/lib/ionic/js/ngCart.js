@@ -418,6 +418,21 @@ angular.module('ngCart.directives', ['ngCart.fulfilment'])
             }
         };
     }])
+    .directive('ngcartCount', [function(){
+        return {
+            restrict : 'E',
+            controller : 'CartController',
+            scope: {},
+            transclude: true,
+            templateUrl: function(element, attrs) {
+                if ( typeof attrs.templateUrl == 'undefined' ) {
+                    return 'template/ngCart/cartcount.html';
+                } else {
+                    return attrs.templateUrl;
+                }
+            }
+        };
+    }])
 
     .directive('ngcartCheckout', [function(){
         return {

@@ -12,7 +12,7 @@
         <span>Check Cart</span>
       </button> -->
       
-      <span class="glyphicon glyphicon-shopping-cart" ng-style="(ngCart.getTotalItems()>0)?{'color':'red'}:{'color':'grey'}"></span><ngcart-summary></ngcart-summary>
+     <ngcart-count></ngcart-count>
         <button type="button" class="btn btn-default"  ui-sref="checkcart">
           Go To Cart
         </button>
@@ -62,8 +62,10 @@
     </mark>
 </div>
 </script>
-<script type="text/ng-template" id="template/ngCart/summary.html"><div class="row">
-    <div class="col-md-6">{{ ngCart.getTotalItems() }}
+<script type="text/ng-template" id="template/ngCart/cartcount.html"><div class="row">
+    <div class="col-md-6">
+     <span class="glyphicon glyphicon-shopping-cart" ng-style="(ngCart.getTotalItems()>0)?{'color':'red'}:{'color':'grey'}"></span>
+    {{ ngCart.getTotalItems() }}
     </div>
 </script>
 
