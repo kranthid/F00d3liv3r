@@ -1,47 +1,47 @@
 angular.module('starter.services', [])
 
-.factory('Chats', function() {
+.factory('Menu', function() {
   // Might use a resource here that returns a JSON array
 
   // Some fake testing data
-  var chats = [{
+  var menu = [{
     id: 0,
     name: 'BREAKFAST',
     lastText: '',
-    face: 'img/ben.png'
+    face: 'img/bonda.png'
   }, {
     id: 1,
     name: 'SNACKS',
     lastText: '',
-    face: 'img/max.png'
+    face: 'img/dosa.png'
   }, {
     id: 2,
     name: 'SANDWICHES',
     lastText: '',
-    face: 'img/adam.jpg'
+    face: 'img/chapati.png'
   }, {
     id: 3,
     name: 'VEGETARIAN',
     lastText: '',
-    face: 'img/perry.png'
+    face: 'img/puri.png'
   }, {
     id: 4,
     name: 'NON-VEGETARIAN',
     lastText: '',
-    face: 'img/mike.png'
+    face: 'img/juice.png'
   }];
 
   return {
     all: function() {
-      return chats;
+      return menu;
     },
     remove: function(chat) {
-      chats.splice(chats.indexOf(chat), 1);
+      menu.splice(menu.indexOf(chat), 1);
     },
     get: function(chatId) {
-      for (var i = 0; i < chats.length; i++) {
-        if (chats[i].id === parseInt(chatId)) {
-          return chats[i];
+      for (var i = 0; i < menu.length; i++) {
+        if (menu[i].id === parseInt(chatId)) {
+          return menu[i];
         }
       }
       return null;
@@ -95,12 +95,12 @@ angular.module('starter.services', [])
       return breakfast_items;
     },
     remove: function(chat) {
-      chats.splice(chats.indexOf(chat), 1);
+      menu.splice(menu.indexOf(chat), 1);
     },
     get: function(chatId) {
-      for (var i = 0; i < chats.length; i++) {
-        if (chats[i].id === parseInt(chatId)) {
-          return chats[i];
+      for (var i = 0; i < menu.length; i++) {
+        if (menu[i].id === parseInt(chatId)) {
+          return menu[i];
         }
       }
       return null;
