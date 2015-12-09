@@ -1,7 +1,7 @@
 /* global angular, document, window */
 'use strict';
 
-angular.module('starter.controllers', [])
+angular.module('starter.controllers', ['ngCart'])
 
 .controller('AppCtrl', function($scope, $ionicModal, $ionicPopover, $timeout) {
     // Form data for the login modal
@@ -156,13 +156,29 @@ angular.module('starter.controllers', [])
     // Activate ink for controller
     ionicMaterialInk.displayEffect();
 })
-
-.controller('GalleryCtrl', function($scope, $stateParams, $timeout, ionicMaterialInk, ionicMaterialMotion) {
+.controller('ChatDetailCtrl', function($scope, $stateParams, Chats,Cusines,ngCart) {
+  $scope.chat = Chats.get($stateParams.chatId);
+  $scope.food_details = Cusines.all();
+  $scope.cartColor = (ngCart.$cart.items.length)?true:false;
+    ngCart.setTaxRate(7.5);
+    ngCart.setShipping(2.99);  
+})
+.controller('GalleryCtrl', function($scope, $stateParams, $timeout, Menu, Cusines, ngCart, ionicMaterialInk, ionicMaterialMotion) {
     $scope.$parent.showHeader();
     $scope.$parent.clearFabs();
     $scope.isExpanded = true;
     $scope.$parent.setExpanded(true);
     $scope.$parent.setHeaderFab(false);
+
+    //
+    $scope.menu = Menu.get($stateParams.chatId);
+    $scope.food_details = Cusines.all();
+    $scope.cartColor = (ngCart.$cart.items.length)?true:false;
+    ngCart.setTaxRate(7.5);
+    ngCart.setShipping(2.99);
+
+
+
 
     // Activate ink for controller
     ionicMaterialInk.displayEffect();

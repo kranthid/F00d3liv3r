@@ -1,71 +1,94 @@
+<!-- <ion-view view-title="{{menu.name}}">
+    <ion-nav-buttons side="secondary">
+
+     <ngcart-count></ngcart-count>
+        <button type="button" class="btn btn-default"  ui-sref="checkcart">
+          Go To Cart
+        </button>
+    </ion-nav-buttons>
+
+              <ion-content>
+
+                <div class="row responsive-md">                
+                    <div class="col col-25" ng-repeat="item in food_details">
+                        <img ng-src="{{item.face}}" width="80%"/>
+                        <ngcart-addtocart id="{{item.id}}" name="{{item.name}}" price="{{item.price}}" quantity="1" quantity-max="5">Add to Cart</ngcart-addtocart>
+                    </div>
+                </div>
+            </ion-content>
+</ion-view> 
+
+-->
+
+<script type="text/ng-template" id="template/ngCart/addtocart.html">
+<div ng-show="attrs.id" style="position: relative;">
+    <div style="position: relative;">
+        
+        <a class="btn btn-sm btn-primary"
+           ng-click="inCart()?ngCart.removeItemById(id):ngCart.addItem(id, name, price, q, data)"
+           ng-transclude></a>
+    </div>
+<div>
+<button id="fab-profile" class="button button-fab" nav-view="active" ng-style="inCart()?{
+    '-moz-transform': 'rotate(45deg)',
+    '-webkit-transform': 'rotate(45deg)',
+    '-o-transform': 'rotate(45deg)',
+    '-ms-transform': 'rotate(45deg)',
+    'transform': 'rotate(45deg)'}:{
+    '-moz-transform': 'rotate(0deg)',
+    '-webkit-transform': 'rotate(0deg)',
+    '-o-transform': 'rotate(0deg)',
+    '-ms-transform': 'rotate(0deg)',
+    'transform': 'rotate(0deg)'} " style="transform: translate3d(0%, 0px, 0px);    position: absolute;
+    bottom: 7%;
+    font-size: 28px;
+    left: 5%;"><i class="icon ion-plus"></i></button>
+</div>
+</div>
+</script>
+<script type="text/ng-template" id="template/ngCart/cartcount.html"><div class="row">
+    <div class="col-md-6">
+     <span class="glyphicon glyphicon-shopping-cart" ng-style="(ngCart.getTotalItems()>0)?{'color':'red'}:{'color':'grey'}"></span>
+    {{ ngCart.getTotalItems() }}
+    </div>
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <ion-view view-title="Gallery">
-    <ion-content ng-class="{expanded:isExpanded}" class="animate-fade-slide-in">
-        <div class="list half">
-            <div ui-sref="app.profile" class="card card-gallery item item-text-wrap">
-                <div class="ink dark-bg">
-                    <h2>Where's Elsa?</h2>
-                    <img class="full-image" src="img/sansa-snowcastle3.jpg">
-                </div>
-                <div class="item tabs tabs-secondary tabs-icon-left">
-                    <a class="tab-item stable-bg assertive">
-                        <i class="icon ion-heart"></i>
-                        4
-                    </a>
-                    <a class="tab-item stable-bg positive-900">
-                        <i class="icon ion-chatbubbles"></i>
-                        2
-                    </a>
-                </div>
-            </div>
-            <div ui-sref="app.profile" class="card card-gallery item item-text-wrap">
-                <div class="ink dark-bg">
-                    <h2>Hmm. Hope nobody destroys this!</h2>
-                    <img class="full-image" src="img/sansa-snowcastle.png">
-                </div>
-                <div class="item tabs tabs-secondary tabs-icon-left">
-                    <a class="tab-item stable-bg assertive">
-                        <i class="icon ion-heart"></i>
-                        6
-                    </a>
-                    <a class="tab-item stable-bg positive-900">
-                        <i class="icon ion-chatbubbles"></i>
-                        1
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="list half">
-            <div ui-sref="app.profile" class="card card-gallery item item-text-wrap">
-                <div class="ink dark-bg">
-                    <h2>Making Olaf a House</h2>
-                    <img class="full-image" src="img/sansa-snowcastle2.jpg">
-                </div>
-                <div class="item tabs tabs-secondary tabs-icon-left">
-                    <a class="tab-item stable-bg assertive">
-                        <i class="icon ion-heart"></i>
-                        22
-                    </a>
-                    <a class="tab-item stable-bg positive-900">
-                        <i class="icon ion-chatbubbles"></i>
-                        9
-                    </a>
-                </div>
-            </div>
-            <div ui-sref="app.profile" class="card card-gallery item item-text-wrap">
-                <div class="ink dark-bg">
-                    <h2>ohai!</h2>
-                    <img class="full-image" src="img/sansa-snowcastle4.jpg">
-                </div>
-                <div class="item tabs tabs-secondary tabs-icon-left">
-                    <a class="tab-item stable-bg assertive">
-                        <i class="icon ion-heart"></i>
-                        8
-                    </a>
-                    <a class="tab-item stable-bg positive-900">
-                        <i class="icon ion-chatbubbles"></i>
-                        0
-                    </a>
-                </div>
+
+    <ion-content ng-class="{expanded:isExpanded}">
+    <ngcart-count></ngcart-count>
+        <div class="row responsive-sm">                
+            <div class="col col-50" ng-repeat="item in food_details">
+                <ngcart-addtocart id="{{item.id}}" name="{{item.name}}" price="{{item.price}}" quantity="1" quantity-max="5"><img ng-src="{{item.face}}" width="100%"/>
+
+                    <label class="" style="position: absolute;
+    top: 8%;
+    font-size: 28px;
+    color: white;
+    left: 7%;">"{{item.name}}"</label>
+
+    <label class="" style="position: absolute;
+    top: 28%;
+    font-size: 28px;
+    color: white;
+    right: 7%;">"{{item.price}}"</label>
+
+
+                </ngcart-addtocart>
             </div>
         </div>
     </ion-content>

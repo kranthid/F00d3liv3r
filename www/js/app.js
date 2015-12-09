@@ -80,7 +80,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     })
 
     .state('app.gallery', {
-        url: '/gallery',
+        url: '/gallery/:chatId',
         views: {
             'menuContent': {
                 templateUrl: 'templates/gallery.html',
