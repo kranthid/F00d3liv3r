@@ -156,13 +156,7 @@ angular.module('starter.controllers', ['ngCart'])
     // Activate ink for controller
     ionicMaterialInk.displayEffect();
 })
-.controller('ChatDetailCtrl', function($scope, $stateParams, Chats,Cusines,ngCart) {
-  $scope.chat = Chats.get($stateParams.chatId);
-  $scope.food_details = Cusines.all();
-  $scope.cartColor = (ngCart.$cart.items.length)?true:false;
-    ngCart.setTaxRate(7.5);
-    ngCart.setShipping(2.99);  
-})
+
 .controller('GalleryCtrl', function($scope, $stateParams, $timeout, Menu, Cusines, ngCart, ionicMaterialInk, ionicMaterialMotion) {
     $scope.$parent.showHeader();
     $scope.$parent.clearFabs();
@@ -190,6 +184,44 @@ angular.module('starter.controllers', ['ngCart'])
         selector: '.animate-fade-slide-in .item'
     });
 
+})
+
+.controller('CartCtrl', function($scope, ngCart, ionicMaterialInk, ionicMaterialMotion) {
+    $scope.title="Cart"
+    $scope.$parent.showHeader();
+    $scope.$parent.clearFabs();
+    $scope.isExpanded = true;
+    $scope.$parent.setExpanded(true);
+    $scope.$parent.setHeaderFab(false);
+
+    //
+    //$scope.menu = Menu.get($stateParams.chatId);
+    //$scope.food_details = Cusines.all();
+    //$scope.cartColor = (ngCart.$cart.items.length)?true:false;
+    //ngCart.setTaxRate(7.5);
+    //ngCart.setShipping(2.99);
+
+
+
+
+    // Activate ink for controller
+    ionicMaterialInk.displayEffect();
+
+    ionicMaterialMotion.pushDown({
+        selector: '.push-down'
+    });
+    ionicMaterialMotion.fadeSlideInRight({
+        selector: '.animate-fade-slide-in .item'
+    });
+
+
+    $scope.roundNumber = function(n){
+        return Math.floor(n);
+    }
+
+  $scope.payMoney = function(){
+    console.log("This data has to send for the server >>>"+JSON.stringify(ngCart.toObject()));
+  }
 })
 
 ;

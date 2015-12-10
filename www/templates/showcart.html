@@ -1,0 +1,106 @@
+<ion-view view-title="{{title}}">
+	
+  <ion-content ng-class="{expanded:isExpanded}">
+    
+    <ngcart-cart></ngcart-cart>
+        <div class="row">
+            <div class="col">
+            	 <button class="btn btn-primary" ng-click="payMoney()">Proceed to pay</button>
+        	</div>
+        </div>
+  </ion-content>
+</ion-view>
+
+
+<!-- CART TEMPLATE -->
+<script type="text/ng-template" id="template/ngCart/cart.html">
+
+
+
+<div class="alert alert-warning" role="alert" ng-show="ngCart.getTotalItems() === 0">
+    Your cart is empty
+</div>
+
+<div ng-show="ngCart.getTotalItems() > 0">
+
+    <div class="item card-item">
+        <div class="row">
+            <div class="col col-50">MIN. DELIVERY AMOUNT<br/>&#8377;99</div>
+                <div class="col" style="text-align:right">EST. DELIVERY TIME<br/>42 MIN</div>
+        </div>
+        <div class="card">
+            <div class="row item-divider">
+                <div class="col col-75">YOUR CART</div>
+            </div>
+            <div class="row" ng-repeat="item in ngCart.getCart().items track by $index">
+                <div class="col col-75"><strong>{{ item.getName() }} </strong><br/>{{ item.getPrice() | currency:'&#8377;':0 }}</div>
+                <div class="col">
+                    <div style="display:inline" class="ion-minus-circled" ng-class="{'disabled':item.getQuantity()==1}"
+                        ng-click="item.setQuantity(-1, true)"></div>&nbsp;&nbsp;
+                    {{ item.getQuantity() | number }}&nbsp;&nbsp;
+                    <div style="display:inline" class="ion-plus-circled" ng-click="item.setQuantity(1, true)"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="item card-item" >
+
+        <div class="card">
+            <div class="row item-divider">
+                <div class="col col-75">YOUR ORDER</div>
+            </div>
+            <div class="row" ng-repeat="item in ngCart.getCart().items track by $index">
+                <div class="col col-75">{{ item.getName() }} ({{ item.getQuantity() }})</div>
+                <div class="col" style="text-align:right">
+                   {{ item.getTotal() | currency:'&#8377;':0 }}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col col-75">Tax ({{ ngCart.getTaxRate() }}%)</div>
+                <div class="col" style="text-align:right">
+                   +{{ ngCart.getTax() | currency:'&#8377;' }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-75">Shipping</div>
+                <div class="col" style="text-align:right">
+                   {{ ngCart.getShipping() | currency:'&#8377;' }}
+                </div>
+            </div>
+            <div class="row item-divider">
+                <div class="col col-75">TOTAL</div>
+                <div class="col" style="text-align:right">
+                   <strong>{{ ngCart.totalCost() | currency:'&#8377;' }}</strong>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="item card-item" >
+        <div class="card">
+            <div class="row item-divider">
+                <div class="col">APPLY A COUPAN CODE</div>
+            </div>
+            <div class="row">
+                <div class="col">
+                <input type="text"></input>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+</script>
+
+<script type="text/ng-template" id="template/ngCart/checkout.html">
+<div>
+    <button class="btn btn-primary" ng-click="payMoney()" ng-disabled="!ngCart.getTotalItems()" ng-transclude>Checkout</button>
+</div>
+</script>
+
+
+
