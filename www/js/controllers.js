@@ -109,7 +109,7 @@ angular.module('starter.controllers', ['ngCart'])
     }, 300);
 
     // Set Motion
-    ionicMaterialMotion.fadeSlideInRight();
+    //ionicMaterialMotion.fadeSlideInRight();
 
     // Set Ink
     ionicMaterialInk.displayEffect();
@@ -180,9 +180,9 @@ angular.module('starter.controllers', ['ngCart'])
     ionicMaterialMotion.pushDown({
         selector: '.push-down'
     });
-    ionicMaterialMotion.fadeSlideInRight({
+    /*ionicMaterialMotion.fadeSlideInRight({
         selector: '.animate-fade-slide-in .item'
-    });
+    });*/
 
 })
 
@@ -210,9 +210,9 @@ angular.module('starter.controllers', ['ngCart'])
     ionicMaterialMotion.pushDown({
         selector: '.push-down'
     });
-    ionicMaterialMotion.fadeSlideInRight({
+    /*ionicMaterialMotion.fadeSlideInRight({
         selector: '.animate-fade-slide-in .item'
-    });
+    });*/
 
 
     $scope.roundNumber = function(n){

@@ -107,6 +107,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         }
     })
 
+    .state('ordertrack', {
+        url: '/ordertrack',
+        templateUrl: 'templates/order-track.html'
+        
+    })
+
     .state('app.profile', {
         url: '/profile',
         views: {
