@@ -1,7 +1,7 @@
 /* global angular, document, window */
 'use strict';
 
-angular.module('starter.controllers', ['ngCart'])
+angular.module('starter.controllers', ['ionic', 'ngCart', 'ngCordova'])
 
 .controller('AppCtrl', function($scope, $ionicModal, $ionicPopover, $timeout) {
     // Form data for the login modal
@@ -95,7 +95,7 @@ angular.module('starter.controllers', ['ngCart'])
     ionicMaterialInk.displayEffect();
 })
 
-.controller('MenuCtrl', function($scope, $stateParams, $timeout, Menu, ionicMaterialInk, ionicMaterialMotion) {
+.controller('MenuCtrl', function($scope, $stateParams, $timeout, Menu, ionicMaterialInk, ionicMaterialMotion, $cordovaGeolocation) {
     // Set Header
     $scope.$parent.showHeader();
     $scope.$parent.clearFabs();
@@ -113,6 +113,73 @@ angular.module('starter.controllers', ['ngCart'])
 
     // Set Ink
     ionicMaterialInk.displayEffect();
+
+
+var geocoder = new google.maps.Geocoder();
+
+var posOptions = {timeout: 10000, enableHighAccuracy: true};
+  $cordovaGeolocation
+    .getCurrentPosition(posOptions)
+    .then(function (position) {
+      var lat  = position.coords.latitude
+      var long = position.coords.longitude
+      console.log(lat, long);
+      var LatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+            showLocation(LatLng);
+            
+    }, function(err) {
+      // error
+    });
+
+
+  var watchOptions = {
+    timeout : 3000,
+    enableHighAccuracy: true // may cause errors if true
+  };
+
+  var watch = $cordovaGeolocation.watchPosition(watchOptions);
+  watch.then(
+    null,
+    function(err) {
+      // error
+    },
+    function(position) {
+      var lat  = position.coords.latitude
+      var long = position.coords.longitude
+
+
+  });
+
+
+  watch.clearWatch();
+  // OR
+  /*$cordovaGeolocation.clearWatch(watch)
+    .then(function(result) {
+      // success
+      console.log("result:"+result);
+      }, function (error) {
+      // error
+    });*/
+
+
+function showLocation(LatLng){
+            geocoder.geocode({'latLng': LatLng}, function(results, status){
+                if(status == google.maps.GeocoderStatus.OK){
+                    //vm.myLocation = results[0].formatted_address;
+                    $scope.myLocation = results[0].formatted_address;
+                    //console.log($scope.myLocation);
+                    $cordovaGeolocation.setLocation($scope.myLocation);
+                    console.log($cordovaGeolocation.getLocation());
+                }
+            })
+        }
+
+
+
+
+
+
+
 })
 
 .controller('ProfileCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk) {

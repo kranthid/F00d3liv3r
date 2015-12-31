@@ -46978,7 +46978,8 @@ IonicModule
   '$ionicNavBarDelegate',
   '$ionicConfig',
   '$ionicHistory',
-function($scope, $element, $attrs, $compile, $timeout, $ionicNavBarDelegate, $ionicConfig, $ionicHistory) {
+  '$cordovaGeolocation',
+function($scope, $element, $attrs, $compile, $timeout, $ionicNavBarDelegate, $ionicConfig, $ionicHistory, $cordovaGeolocation) {
 
   var CSS_HIDE = 'hide';
   var DATA_NAV_BAR_CTRL = '$ionNavBarController';
@@ -46992,6 +46993,7 @@ function($scope, $element, $attrs, $compile, $timeout, $ionicNavBarDelegate, $io
   var navElementHtml = {};
   var isVisible = true;
   var queuedTransitionStart, queuedTransitionEnd, latestTransitionId;
+  $scope.address = "loc:";
 
   $element.parent().data(DATA_NAV_BAR_CTRL, self);
 
@@ -47006,11 +47008,44 @@ function($scope, $element, $attrs, $compile, $timeout, $ionicNavBarDelegate, $io
 
 
 //custom address bar 
+
+
+  var geocoder = new google.maps.Geocoder();
+
+var posOptions = {timeout: 10000, enableHighAccuracy: true};
+  $cordovaGeolocation
+    .getCurrentPosition(posOptions)
+    .then(function (position) {
+      var lat  = position.coords.latitude
+      var long = position.coords.longitude
+      console.log(lat, long);
+      var LatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+            showLocation(LatLng);
+            
+    }, function(err) {
+      // error
+    });
+
+    function showLocation(LatLng){
+            geocoder.geocode({'latLng': LatLng}, function(results, status){
+                if(status == google.maps.GeocoderStatus.OK){
+                    //vm.myLocation = results[0].formatted_address;
+                    $scope.myLocation = results[0].formatted_address;
+                    //console.log($scope.myLocation);
+                    $cordovaGeolocation.setLocation($scope.myLocation);
+                    console.log($cordovaGeolocation.getLocation());
+                    $scope.address = $cordovaGeolocation.getLocation();
+                    console.log("Location:"+$cordovaGeolocation.getLocation());
+      
+                }
+            })
+        }
+
     if(addressEle == undefined || addressEle == "undefined"){
-      var addressEle = jqLite('<div class="" style="display: block; top: 13px;position: absolute;right: 15%;width: 75%;"><input style="width: 100%; height: 20%;" type="text" placeholder="getting uraddress">');
-      $scope.address = addressEle.text();
+      var addressEle = jqLite('<div class="" style="display: block; top: 13px;position: absolute;right: 15%;width: 75%;"><input ng-model="address" style="width: 100%; height: 20%;" type="text" placeholder="getting uraddress">');
+      //addressEle.text($cordovaGeolocation.getLocation());
       // append title in the header, this is the rock to where buttons append
-      console.log($scope.address);
+
       
     }
 
