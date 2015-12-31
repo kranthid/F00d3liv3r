@@ -47004,15 +47004,28 @@ function($scope, $element, $attrs, $compile, $timeout, $ionicNavBarDelegate, $io
     $element.addClass('nav-bar-container');
     ionic.DomUtil.cachedAttr($element, 'nav-bar-transition', $ionicConfig.views.transition());
 
+
+//custom address bar 
+    if(addressEle == undefined || addressEle == "undefined"){
+      var addressEle = jqLite('<div class="" style="display: block; top: 13px;position: absolute;right: 15%;width: 75%;"><input style="width: 100%; height: 20%;" type="text" placeholder="getting uraddress">');
+      $scope.address = addressEle.text();
+      // append title in the header, this is the rock to where buttons append
+      console.log($scope.address);
+      
+    }
+
+
+
+
     // create two nav bar blocks which will trade out which one is shown
-    self.createHeaderBar(false);
-    self.createHeaderBar(true);
+    self.createHeaderBar(false, addressEle);
+    self.createHeaderBar(true, addressEle);
 
     $scope.$emit('ionNavBar.init', delegateHandle);
   };
 
 
-  self.createHeaderBar = function(isActive, navBarClass) {
+  self.createHeaderBar = function(isActive, adrEle, navBarClass) {
     var containerEle = jqLite('<div class="nav-bar-block">');
     ionic.DomUtil.cachedAttr(containerEle, 'nav-bar', isActive ? 'active' : 'cached');
 
@@ -47020,6 +47033,10 @@ function($scope, $element, $attrs, $compile, $timeout, $ionicNavBarDelegate, $io
     var headerBarEle = jqLite('<ion-header-bar>').addClass($attrs['class']).attr('align-title', alignTitle);
     if (isDefined($attrs.noTapScroll)) headerBarEle.attr('no-tap-scroll', $attrs.noTapScroll);
     var titleEle = jqLite('<div class="title title-' + alignTitle + '">');
+
+    //custom address bar 
+    headerBarEle.append(adrEle);
+    
     var navEle = {};
     var lastViewItemEle = {};
     var leftButtonsEle, rightButtonsEle;
@@ -47028,6 +47045,7 @@ function($scope, $element, $attrs, $compile, $timeout, $ionicNavBarDelegate, $io
     navEle[BACK_BUTTON] = createNavElement(BACK_BUTTON);
     navEle[BACK_BUTTON] && headerBarEle.append(navEle[BACK_BUTTON]);
 
+    
     // append title in the header, this is the rock to where buttons append
     headerBarEle.append(titleEle);
 

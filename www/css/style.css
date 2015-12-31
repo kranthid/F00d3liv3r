@@ -77,3 +77,14 @@ p {
     position: fixed;
     bottom: 0;
 }
+
+
+/*
+custom css
+*/
+.bar .button.back-button {
+    margin-top: 35px;
+}
+
+
+

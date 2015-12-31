@@ -80,7 +80,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     })
 
     .state('app.gallery', {
-        url: '/gallery/:chatId',
+        url: '/gallery/:menuId',
         views: {
             'menuContent': {
                 templateUrl: 'templates/gallery.html',
@@ -107,9 +107,14 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         }
     })
 
-    .state('ordertrack', {
+    .state('app.ordertrack', {
         url: '/ordertrack',
-        templateUrl: 'templates/order-track.html'
+        views: {
+            'menuContent': {
+                
+                templateUrl: 'templates/order-track.html'
+            }
+        }
         
     })
 

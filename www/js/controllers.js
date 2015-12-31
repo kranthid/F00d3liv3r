@@ -165,7 +165,7 @@ angular.module('starter.controllers', ['ngCart'])
     $scope.$parent.setHeaderFab(false);
 
     //
-    $scope.menu = Menu.get($stateParams.chatId);
+    $scope.menu = Menu.get($stateParams.menuId);
     $scope.food_details = Cusines.all();
     $scope.cartColor = (ngCart.$cart.items.length)?true:false;
     ngCart.setTaxRate(7.5);
@@ -195,7 +195,7 @@ angular.module('starter.controllers', ['ngCart'])
     $scope.$parent.setHeaderFab(false);
 
     //
-    //$scope.menu = Menu.get($stateParams.chatId);
+    //$scope.menu = Menu.get($stateParams.menuId);
     //$scope.food_details = Cusines.all();
     //$scope.cartColor = (ngCart.$cart.items.length)?true:false;
     //ngCart.setTaxRate(7.5);

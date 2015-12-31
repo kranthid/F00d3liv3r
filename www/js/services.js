@@ -38,9 +38,9 @@ angular.module('starter.services', [])
     remove: function(chat) {
       menu.splice(menu.indexOf(chat), 1);
     },
-    get: function(chatId) {
+    get: function(menuId) {
       for (var i = 0; i < menu.length; i++) {
-        if (menu[i].id === parseInt(chatId)) {
+        if (menu[i].id === parseInt(menuId)) {
           return menu[i];
         }
       }
@@ -97,9 +97,9 @@ angular.module('starter.services', [])
     remove: function(chat) {
       menu.splice(menu.indexOf(chat), 1);
     },
-    get: function(chatId) {
+    get: function(menuId) {
       for (var i = 0; i < menu.length; i++) {
-        if (menu[i].id === parseInt(chatId)) {
+        if (menu[i].id === parseInt(menuId)) {
           return menu[i];
         }
       }

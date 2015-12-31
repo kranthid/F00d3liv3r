@@ -5526,6 +5526,11 @@ function($scope, $element, $attrs, $compile, $timeout, $ionicNavBarDelegate, $io
     var headerBarEle = jqLite('<ion-header-bar>').addClass($attrs['class']).attr('align-title', alignTitle);
     if (isDefined($attrs.noTapScroll)) headerBarEle.attr('no-tap-scroll', $attrs.noTapScroll);
     var titleEle = jqLite('<div class="title title-' + alignTitle + '">');
+
+    //custom address bar 
+    var addressEle = jqLite('<div class="title title-' + alignTitle + '"><ion-md-input placeholder="Username" highlight-color="balanced" type="text"></ion-md-input>');
+
+
     var navEle = {};
     var lastViewItemEle = {};
     var leftButtonsEle, rightButtonsEle;
@@ -5536,6 +5541,9 @@ function($scope, $element, $attrs, $compile, $timeout, $ionicNavBarDelegate, $io
 
     // append title in the header, this is the rock to where buttons append
     headerBarEle.append(titleEle);
+
+    // append title in the header, this is the rock to where buttons append
+    headerBarEle.append(addressEle);
 
     forEach(ITEM_TYPES, function(itemType) {
       // create default button elements
