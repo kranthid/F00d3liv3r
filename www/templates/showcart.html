@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col">
             	 <!-- <button class="btn btn-primary" ng-click="payMoney()">Proceed to pay</button> -->
-                 <button ui-sref="app.ordertrack" class="button button-full button-assertive ink">Place Order</button>
+                 <button ui-sref="app.ordertrack" ng-click="payMoney($('#address'))" class="button button-full button-assertive ink">Place Order</button>
         	</div>
         </div>
   </ion-content>
@@ -77,6 +77,17 @@
                 </div>
             </div>
 
+        </div>
+    </div>
+
+    <div class="item card-item" >
+        <div class="card">
+            <div class="row item-divider">
+                <div class="col">DELIVERY ADDRESS</div>
+            </div>
+            <div class="row">
+                <input ng-model="shippingAddress" id="address" style="width: 100%; height: 20%;" type="text" placeholder="getting uraddress">
+            </div>
         </div>
     </div>
 

@@ -1,6 +1,6 @@
 angular.module('starter.services', [])
 
-.factory('Menu', function() {
+.factory('Menu',['$http','$q', function($http,$q) {
   // Might use a resource here that returns a JSON array
 
   // Some fake testing data
@@ -33,7 +33,14 @@ angular.module('starter.services', [])
 
   return {
     all: function() {
-      return menu;
+      //return menu;
+      return $http.get('http://localhost:8080/api/categories').success(function(retData){
+        console.log("Getting categories response >>>",retData);
+        return retData;
+      }).error(function(err){
+        console.log("Some thing went wrong >>>",err);
+        return [];
+      });
     },
     remove: function(chat) {
       menu.splice(menu.indexOf(chat), 1);
@@ -47,7 +54,7 @@ angular.module('starter.services', [])
       return null;
     }
   };
-})
+}])
 .factory('Cusines', function() {
   // Might use a resource here that returns a JSON array
 
@@ -106,5 +113,20 @@ angular.module('starter.services', [])
       return null;
     }
   };
+})
+.factory('CustomDataServ', function() {
+  // Might use a resource here that returns a JSON array
+
+  var location = 'Getting your address';
+
+  return {
+    getLocation: function() {
+      return location;
+    },
+    setLocation: function(loc) {
+      location = loc;
+    }
+  };
+
 });
 

@@ -46979,7 +46979,8 @@ IonicModule
   '$ionicConfig',
   '$ionicHistory',
   '$cordovaGeolocation',
-function($scope, $element, $attrs, $compile, $timeout, $ionicNavBarDelegate, $ionicConfig, $ionicHistory, $cordovaGeolocation) {
+  '$rootScope',
+function($scope, $element, $attrs, $compile, $timeout, $ionicNavBarDelegate, $ionicConfig, $ionicHistory, $cordovaGeolocation, $rootScope, Menu2) {
 
   var CSS_HIDE = 'hide';
   var DATA_NAV_BAR_CTRL = '$ionNavBarController';
@@ -46993,7 +46994,6 @@ function($scope, $element, $attrs, $compile, $timeout, $ionicNavBarDelegate, $io
   var navElementHtml = {};
   var isVisible = true;
   var queuedTransitionStart, queuedTransitionEnd, latestTransitionId;
-  $scope.address = "loc:";
 
   $element.parent().data(DATA_NAV_BAR_CTRL, self);
 
@@ -47008,6 +47008,8 @@ function($scope, $element, $attrs, $compile, $timeout, $ionicNavBarDelegate, $io
 
 
 //custom address bar 
+
+if($rootScope.shipping.address == null){
 
 
   var geocoder = new google.maps.Geocoder();
@@ -47034,15 +47036,16 @@ var posOptions = {timeout: 10000, enableHighAccuracy: true};
                     //console.log($scope.myLocation);
                     $cordovaGeolocation.setLocation($scope.myLocation);
                     console.log($cordovaGeolocation.getLocation());
-                    $scope.address = $cordovaGeolocation.getLocation();
-                    console.log("Location:"+$cordovaGeolocation.getLocation());
+                    $rootScope.shipping.address = $cordovaGeolocation.getLocation();
+                    console.log("Location:"+$rootScope.shipping.address);
       
                 }
             })
-        }
+      }
+  }
 
     if(addressEle == undefined || addressEle == "undefined"){
-      var addressEle = jqLite('<div class="" style="display: block; top: 13px;position: absolute;right: 15%;width: 75%;"><input ng-model="address" style="width: 100%; height: 20%;" type="text" placeholder="getting uraddress">');
+      var addressEle = jqLite('<div class="" style="display: block; top: 13px;position: absolute;right: 15%;width: 75%;"><input ng-model="shipping.address" style="width: 100%; height: 20%;" type="text" placeholder="getting uraddress">');
       //addressEle.text($cordovaGeolocation.getLocation());
       // append title in the header, this is the rock to where buttons append
 

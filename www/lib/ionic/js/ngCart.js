@@ -37,6 +37,7 @@ angular.module('ngCart', ['ngCart.directives'])
                 items : []
             };
         };
+        this.shippingAddress = null;
 
         this.addItem = function (id, name, price, quantity, data) {
 
@@ -176,7 +177,8 @@ angular.module('ngCart', ['ngCart.directives'])
                 taxRate: this.getTaxRate(),
                 subTotal: this.getSubTotal(),
                 totalCost: this.totalCost(),
-                items:items
+                items:items,
+                shippingAddress: this.shippingAddress
             }
         };
 
@@ -328,8 +330,9 @@ angular.module('ngCart', ['ngCart.directives'])
         }
     }])
 
-    .controller('CartController',['$scope', 'ngCart', function($scope, ngCart) {
+    .controller('CartController',['$scope', 'ngCart', '$rootScope', function($scope, ngCart, $rootScope) {
         $scope.ngCart = ngCart;
+        $scope.shippingAddress = $rootScope.shipping.address;
 
     }])
 

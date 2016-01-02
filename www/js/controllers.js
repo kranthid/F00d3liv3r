@@ -1,14 +1,16 @@
 /* global angular, document, window */
 'use strict';
 
-angular.module('starter.controllers', ['ionic', 'ngCart', 'ngCordova'])
+angular.module('starter.controllers', ['ngCart', 'ngCordova'])
 
-.controller('AppCtrl', function($scope, $ionicModal, $ionicPopover, $timeout) {
+.controller('AppCtrl', function($scope, $ionicModal, $ionicPopover, $timeout, $rootScope) {
     // Form data for the login modal
     $scope.loginData = {};
     $scope.isExpanded = false;
     $scope.hasHeaderFabLeft = false;
     $scope.hasHeaderFabRight = false;
+
+    $rootScope.shipping = {};
 
     var navIcons = document.getElementsByClassName('ion-navicon');
     for (var i = 0; i < navIcons.length; i++) {
@@ -95,13 +97,19 @@ angular.module('starter.controllers', ['ionic', 'ngCart', 'ngCordova'])
     ionicMaterialInk.displayEffect();
 })
 
-.controller('MenuCtrl', function($scope, $stateParams, $timeout, Menu, ionicMaterialInk, ionicMaterialMotion, $cordovaGeolocation) {
+.controller('MenuCtrl', function($scope, $stateParams, $timeout, Menu, ionicMaterialInk, ionicMaterialMotion) {
     // Set Header
     $scope.$parent.showHeader();
     $scope.$parent.clearFabs();
     $scope.$parent.setHeaderFab('left');
     //get Menu list
-    $scope.menu = Menu.all();
+    //$scope.menu = Menu.all();
+    Menu.all().then(function(res){
+        $scope.menu = res.data
+    },function(err){
+        console.log("err is >>>",err);
+        $scope.menu = [];
+    })
     // Delay expansion
     $timeout(function() {
         $scope.isExpanded = true;
@@ -113,73 +121,6 @@ angular.module('starter.controllers', ['ionic', 'ngCart', 'ngCordova'])
 
     // Set Ink
     ionicMaterialInk.displayEffect();
-
-
-var geocoder = new google.maps.Geocoder();
-
-var posOptions = {timeout: 10000, enableHighAccuracy: true};
-  $cordovaGeolocation
-    .getCurrentPosition(posOptions)
-    .then(function (position) {
-      var lat  = position.coords.latitude
-      var long = position.coords.longitude
-      console.log(lat, long);
-      var LatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-            showLocation(LatLng);
-            
-    }, function(err) {
-      // error
-    });
-
-
-  var watchOptions = {
-    timeout : 3000,
-    enableHighAccuracy: true // may cause errors if true
-  };
-
-  var watch = $cordovaGeolocation.watchPosition(watchOptions);
-  watch.then(
-    null,
-    function(err) {
-      // error
-    },
-    function(position) {
-      var lat  = position.coords.latitude
-      var long = position.coords.longitude
-
-
-  });
-
-
-  watch.clearWatch();
-  // OR
-  /*$cordovaGeolocation.clearWatch(watch)
-    .then(function(result) {
-      // success
-      console.log("result:"+result);
-      }, function (error) {
-      // error
-    });*/
-
-
-function showLocation(LatLng){
-            geocoder.geocode({'latLng': LatLng}, function(results, status){
-                if(status == google.maps.GeocoderStatus.OK){
-                    //vm.myLocation = results[0].formatted_address;
-                    $scope.myLocation = results[0].formatted_address;
-                    //console.log($scope.myLocation);
-                    $cordovaGeolocation.setLocation($scope.myLocation);
-                    console.log($cordovaGeolocation.getLocation());
-                }
-            })
-        }
-
-
-
-
-
-
-
 })
 
 .controller('ProfileCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk) {
@@ -232,7 +173,7 @@ function showLocation(LatLng){
     $scope.$parent.setHeaderFab(false);
 
     //
-    $scope.menu = Menu.get($stateParams.menuId);
+    $scope.menu = Menu.get($stateParams.chatId);
     $scope.food_details = Cusines.all();
     $scope.cartColor = (ngCart.$cart.items.length)?true:false;
     ngCart.setTaxRate(7.5);
@@ -253,7 +194,7 @@ function showLocation(LatLng){
 
 })
 
-.controller('CartCtrl', function($scope, ngCart, ionicMaterialInk, ionicMaterialMotion) {
+.controller('CartCtrl', function($scope, ngCart, ionicMaterialInk, ionicMaterialMotion, $rootScope) {
     $scope.title="Cart"
     $scope.$parent.showHeader();
     $scope.$parent.clearFabs();
@@ -262,13 +203,13 @@ function showLocation(LatLng){
     $scope.$parent.setHeaderFab(false);
 
     //
-    //$scope.menu = Menu.get($stateParams.menuId);
+    //$scope.menu = Menu.get($stateParams.chatId);
     //$scope.food_details = Cusines.all();
     //$scope.cartColor = (ngCart.$cart.items.length)?true:false;
     //ngCart.setTaxRate(7.5);
     //ngCart.setShipping(2.99);
 
-
+    console.log($rootScope.address);
 
 
     // Activate ink for controller
@@ -286,7 +227,8 @@ function showLocation(LatLng){
         return Math.floor(n);
     }
 
-  $scope.payMoney = function(){
+  $scope.payMoney = function(shippingAddress){
+    console.log("address is >>>",shippingAddress);
     console.log("This data has to send for the server >>>"+JSON.stringify(ngCart.toObject()));
   }
 })
