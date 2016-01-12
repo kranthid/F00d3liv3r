@@ -6,41 +6,41 @@ angular.module('starter.services', [])
   // Some fake testing data
   var menu = [{
     id: 0,
-    name: 'BREAKFAST',
+    title: 'BREAKFAST',
     lastText: '',
-    face: 'img/bonda.png'
+    imageUrl: 'img/bonda.png'
   }, {
     id: 1,
-    name: 'SNACKS',
+    title: 'SNACKS',
     lastText: '',
-    face: 'img/dosa.png'
+    imageUrl: 'img/dosa.png'
   }, {
     id: 2,
-    name: 'SANDWICHES',
+    title: 'SANDWICHES',
     lastText: '',
-    face: 'img/chapati.png'
+    imageUrl: 'img/chapati.png'
   }, {
     id: 3,
-    name: 'VEGETARIAN',
+    title: 'VEGETARIAN',
     lastText: '',
-    face: 'img/puri.png'
+    imageUrl: 'img/puri.png'
   }, {
     id: 4,
-    name: 'NON-VEGETARIAN',
+    title: 'NON-VEGETARIAN',
     lastText: '',
-    face: 'img/juice.png'
+    imageUrl: 'img/juice.png'
   }];
 
   return {
     all: function() {
-      //return menu;
-      return $http.get('http://localhost:8080/api/categories').success(function(retData){
+      return menu;
+      /*return $http.get('http://localhost:8080/api/categories').success(function(retData){
         console.log("Getting categories response >>>",retData);
         return retData;
       }).error(function(err){
         console.log("Some thing went wrong >>>",err);
         return [];
-      });
+      });*/
     },
     remove: function(chat) {
       menu.splice(menu.indexOf(chat), 1);

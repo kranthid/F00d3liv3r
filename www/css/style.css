@@ -79,12 +79,74 @@ p {
 }
 
 
-/*
-custom css
-*/
+/*************************************************************
+                        custom css
+*************************************************************/
+.pane, .view {
+    background-color: #444;
+}
+
 .bar .button.back-button {
     margin-top: 35px;
 }
+.bar .title {
+    color: #999;
+}
+
+.list input {
+    background-color: transparent;
+    border-bottom: 1px solid #FFF;
+    width: 98%;
+    margin: 1% !important;
+    color: white;
+}
+.header-item input {
+    background-color: transparent;
+    border-bottom: 1px solid #999;
+    width: 98%;
+    color: #999;
+    margin: 0 0 0 4px !important;
+    padding: 0px !important;
+}
+/*placeholder input text color*/
+input::-webkit-input-placeholder {
+    color:    #fff;
+}
+input:-moz-placeholder {
+    color:    #fff;
+}
+input::-moz-placeholder {
+    color:    #fff;
+}
+input:-ms-input-placeholder {
+    color:    #fff;
+}
+/* anchor link*/
+a, :focus, a:focus, a:active, a:hover, button:focus, button:active, button:hover {
+    outline: 0px none;
+    color: #999;
+}
+
+.button.button-assertive {
+    border-color: #999;
+    background-color: #333;
+    color: #999;
+}
+
+.bar-assertive-900{
+    background-color: #222;
+    color: #FFF;
+}
+.item h2 {
+    color: #ff9;
+}
+
+
+
+
+
+
+
 
 
 

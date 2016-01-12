@@ -1,10 +1,11 @@
-<ion-view view-title="Menu" style="background-color: rgb(255, 255, 190)">
+<ion-view view-title="Menu">
     <ion-content ng-class="{expanded:isExpanded}">
         <div class="content has-header">
             <div class="list">
             <div ng-repeat="m in menu">
                     <a href="#/app/gallery/{{m.id}}" class="item item-avatar item-icon-right">
-                        <img src="http://localhost:8080/{{m.imageUrl}}">
+                       <!--   <img src="http://localhost:8080/{{m.imageUrl}}">-->
+                        <img src="{{m.imageUrl}}">
                         <h2>{{m.title}}</h2>
                         <p>Da illest illegitimate</p>
                     </a>

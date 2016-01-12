@@ -91,6 +91,10 @@ angular.module('starter.controllers', ['ngCart', 'ngCordova'])
 
 .controller('LoginCtrl', function($scope, $timeout, $stateParams, ionicMaterialInk) {
     //$scope.$parent.clearFabs();
+
+    $scope.showSignup = true;
+
+
     $timeout(function() {
         //$scope.$parent.hideHeader();
     }, 0);
@@ -103,13 +107,13 @@ angular.module('starter.controllers', ['ngCart', 'ngCordova'])
     $scope.$parent.clearFabs();
     $scope.$parent.setHeaderFab('left');
     //get Menu list
-    //$scope.menu = Menu.all();
-    Menu.all().then(function(res){
+    $scope.menu = Menu.all();
+    /*Menu.all().then(function(res){
         $scope.menu = res.data
     },function(err){
         console.log("err is >>>",err);
         $scope.menu = [];
-    })
+    })*/
     // Delay expansion
     $timeout(function() {
         $scope.isExpanded = true;

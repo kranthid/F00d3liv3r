@@ -47045,7 +47045,7 @@ var posOptions = {timeout: 10000, enableHighAccuracy: true};
   }
 
     if(addressEle == undefined || addressEle == "undefined"){
-      var addressEle = jqLite('<div class="" style="display: block; top: 13px;position: absolute;right: 15%;width: 75%;"><input ng-model="shipping.address" style="width: 100%; height: 20%;" type="text" placeholder="getting uraddress">');
+      var addressEle = jqLite('<div class="" style="display: block; top: 13px;position: absolute;left: 18px;width: 75%;"><div style="display: -webkit-inline-flex;display: -ms-inline-flexbox;display: inline-flex; width: 100%;color: #999;"><i class="icon ion-location"></i> <input ng-model="shipping.address" style="width: 100%; height: 20%;" type="text" placeholder="Fetching your location">');
       //addressEle.text($cordovaGeolocation.getLocation());
       // append title in the header, this is the rock to where buttons append
 
