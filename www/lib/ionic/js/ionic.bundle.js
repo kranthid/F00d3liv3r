@@ -47007,49 +47007,42 @@ function($scope, $element, $attrs, $compile, $timeout, $ionicNavBarDelegate, $io
     ionic.DomUtil.cachedAttr($element, 'nav-bar-transition', $ionicConfig.views.transition());
 
 
-//custom address bar 
+  //custom address bar 
 
-if($rootScope.shipping.address == null){
+  if($rootScope.shipping.address == null){
 
+    var geocoder = new google.maps.Geocoder();
 
-  var geocoder = new google.maps.Geocoder();
+    var posOptions = {timeout: 10000, enableHighAccuracy: true};
+    $cordovaGeolocation
+      .getCurrentPosition(posOptions)
+      .then(function (position) {
+        var lat  = position.coords.latitude
+        var long = position.coords.longitude
+        console.log(lat, long);
+        var LatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+              showLocation(LatLng);
+              
+      }, function(err) {
+        // error
+        console.log("getCurrentPosition: ERROR"+ err);
+      });
 
-var posOptions = {timeout: 10000, enableHighAccuracy: true};
-  $cordovaGeolocation
-    .getCurrentPosition(posOptions)
-    .then(function (position) {
-      var lat  = position.coords.latitude
-      var long = position.coords.longitude
-      console.log(lat, long);
-      var LatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-            showLocation(LatLng);
-            
-    }, function(err) {
-      // error
-    });
-
-    function showLocation(LatLng){
-            geocoder.geocode({'latLng': LatLng}, function(results, status){
-                if(status == google.maps.GeocoderStatus.OK){
-                    //vm.myLocation = results[0].formatted_address;
-                    $scope.myLocation = results[0].formatted_address;
-                    //console.log($scope.myLocation);
-                    $cordovaGeolocation.setLocation($scope.myLocation);
-                    console.log($cordovaGeolocation.getLocation());
-                    $rootScope.shipping.address = $cordovaGeolocation.getLocation();
-                    console.log("Location:"+$rootScope.shipping.address);
-      
-                }
-            })
+      function showLocation(LatLng){
+        geocoder.geocode({'latLng': LatLng}, function(results, status){
+            if(status == google.maps.GeocoderStatus.OK){
+                $scope.myLocation = results[0].formatted_address;
+                $cordovaGeolocation.setLocation($scope.myLocation);
+                $rootScope.shipping.address = $cordovaGeolocation.getLocation();
+                document.getElementById("loc_text").text = $cordovaGeolocation.getLocation();
+                console.log("Location:"+$rootScope.shipping.address);
+            }
+        })
       }
-  }
+    }
 
     if(addressEle == undefined || addressEle == "undefined"){
-      var addressEle = jqLite('<div class="" style="display: block; top: 13px;position: absolute;left: 18px;width: 75%;"><div style="display: -webkit-inline-flex;display: -ms-inline-flexbox;display: inline-flex; width: 100%;color: #999;"><i class="icon ion-location"></i> <input ng-model="shipping.address" style="width: 100%; height: 20%;" type="text" placeholder="Fetching your location">');
-      //addressEle.text($cordovaGeolocation.getLocation());
-      // append title in the header, this is the rock to where buttons append
-
-      
+      var addressEle = jqLite('<div class="" style="display: block; top: 13px;position: absolute;left: 18px;width: 75%;"><div style="display: -webkit-inline-flex;display: -ms-inline-flexbox;display: inline-flex; width: 100%;color: #999;"><i class="icon ion-location"></i> <input id = "loc_text" ng-model="shipping.address" style="width: 100%; height: 20%;" type="text" placeholder="Fetching your location">');
     }
 
 

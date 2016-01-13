@@ -89,6 +89,57 @@ angular.module('starter.controllers', ['ngCart', 'ngCordova'])
     };
 })
 
+.controller('MainActivityCtrl', function($scope, $stateParams, $state, $timeout, $cordovaGeolocation, $ionicHistory, $ionicPopup) {
+    var geocoder = new google.maps.Geocoder();
+    var posOptions = {timeout: 3000, enableHighAccuracy: true};
+      $cordovaGeolocation
+        .getCurrentPosition(posOptions)
+        .then(function (position) {
+
+
+            var lat  = position.coords.latitude
+        var long = position.coords.longitude
+        console.log(lat, long);
+        var LatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+              $scope.showLocation(LatLng);
+        }, function(err) {
+          // error
+          console.log("getCurrentPosition: ERROR"+ err.toString());
+
+
+            $ionicPopup.confirm({
+                        title: "GPS is Disable Please Enable it.",
+                        content: "Go to setting and turn it ON"
+                    })
+                    .then(function(result) {
+                        if(result) {
+                            //cordova.plugins.diagnostic.switchToLocationSettings();
+                            ionic.Platform.exitApp();
+                        }else{
+                            ionic.Platform.exitApp();
+                        }
+                    });
+        });
+
+    $scope.showLocation = function(LatLng, $rootScope){
+            geocoder.geocode({'latLng': LatLng}, function(results, status){
+                if(status == google.maps.GeocoderStatus.OK){
+                    //vm.myLocation = results[0].formatted_address;
+                    $scope.myLocation = results[0].formatted_address;
+                    //console.log($scope.myLocation);
+                    $cordovaGeolocation.setLocation($scope.myLocation);
+                    console.log($cordovaGeolocation.getLocation());
+                    //$rootScope.shipping.address = $cordovaGeolocation.getLocation();
+                    //console.log("Location:"+$rootScope.shipping.address);
+                    $ionicHistory.nextViewOptions({
+                        disableBack: true
+                    });
+                    $state.go('login');
+                }
+            })
+      }
+})
+
 .controller('LoginCtrl', function($scope, $timeout, $stateParams, ionicMaterialInk) {
     //$scope.$parent.clearFabs();
 
@@ -152,23 +203,6 @@ angular.module('starter.controllers', ['ngCart', 'ngCordova'])
     ionicMaterialInk.displayEffect();
 })
 
-.controller('ActivityCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk) {
-    $scope.$parent.showHeader();
-    $scope.$parent.clearFabs();
-    $scope.isExpanded = true;
-    $scope.$parent.setExpanded(true);
-    $scope.$parent.setHeaderFab('right');
-
-    $timeout(function() {
-        ionicMaterialMotion.fadeSlideIn({
-            selector: '.animate-fade-slide-in .item'
-        });
-    }, 200);
-
-    // Activate ink for controller
-    ionicMaterialInk.displayEffect();
-})
-
 .controller('GalleryCtrl', function($scope, $stateParams, $timeout, Menu, Cusines, ngCart, ionicMaterialInk, ionicMaterialMotion) {
     $scope.$parent.showHeader();
     $scope.$parent.clearFabs();
@@ -213,7 +247,7 @@ angular.module('starter.controllers', ['ngCart', 'ngCordova'])
     //ngCart.setTaxRate(7.5);
     //ngCart.setShipping(2.99);
 
-    console.log($rootScope.address);
+    //console.log($rootScope.address);
 
 
     // Activate ink for controller

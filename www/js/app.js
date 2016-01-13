@@ -6,7 +6,7 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'ionic-material', 'ionMdInput'])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, $ionicPopup) {
     $ionicPlatform.ready(function() {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
@@ -16,6 +16,22 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         if (window.StatusBar) {
             // org.apache.cordova.statusbar required
             StatusBar.styleDefault();
+        }
+        console.log("window.Connection:"+window.Connection);
+        // Check for network connection
+        if(window.Connection) {
+            console.log("navigator.connection.type::"+navigator.connection.type);
+          if(navigator.connection.type == Connection.NONE) {
+            $ionicPopup.confirm({
+              title: 'No Internet Connection',
+              content: 'Sorry, no Internet connectivity detected. Please reconnect and try again.'
+            })
+            .then(function(result) {
+              if(!result) {
+                ionic.Platform.exitApp();
+              }
+            });
+          }
         }
     });
 })
@@ -37,28 +53,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         controller: 'AppCtrl'
     })
 
+    .state('mainactivity', {
+        url: '/mainactivity',
+        templateUrl: 'templates/main-activity.html',
+        controller: 'MainActivityCtrl'
+    })
+
     .state('login', {
         url: '/login',
         templateUrl: 'templates/login.html',
         controller: 'LoginCtrl'
-    })
-
-    .state('app.activity', {
-        url: '/activity',
-        views: {
-            'menuContent': {
-                templateUrl: 'templates/activity.html',
-                controller: 'ActivityCtrl'
-            },
-            'fabContent': {
-                template: '<button id="fab-activity" class="button button-fab button-fab-top-right expanded button-energized-900 flap"><i class="icon ion-paper-airplane"></i></button>',
-                controller: function ($timeout) {
-                    $timeout(function () {
-                        document.getElementById('fab-activity').classList.toggle('on');
-                    }, 200);
-                }
-            }
-        }
     })
 
     .state('app.menu', {
@@ -134,9 +138,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
                 }
             }
         }
-    })
-    ;
+    });
 
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/login');
+    $urlRouterProvider.otherwise('/mainactivity');
 });
