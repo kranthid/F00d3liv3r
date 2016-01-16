@@ -94,7 +94,8 @@ angular.module('starter.services', [])
     id: 5,
     name: 'Juice',
     lastText: '',
-    face: 'img/juice.png'
+    face: 'img/juice.png',
+    price:30
   }];
 
   return {
