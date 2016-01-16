@@ -91,12 +91,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
                 controller: 'GalleryCtrl'
             },
             'fabContent': {
-                template: '<button id="fab-gallery" ui-sref="app.checkcart" class="button button-fab button-fab-top-right expanded button-energized-900 drop"><i class="icon ion-bag"></i></button>',
-                controller: function ($timeout) {
-                    $timeout(function () {
-                        document.getElementById('fab-gallery').classList.toggle('on');
-                    }, 600);
-                }
+                templateUrl: 'templates/galleryFAB.html',
+                controller: 'GalleryFABCtrl'
             }
         }
     })

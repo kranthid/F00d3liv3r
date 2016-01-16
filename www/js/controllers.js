@@ -214,9 +214,9 @@ angular.module('starter.controllers', ['ngCart', 'ngCordova'])
     $scope.menu = Menu.get($stateParams.chatId);
     $scope.food_details = Cusines.all();
     $scope.cartColor = (ngCart.$cart.items.length)?true:false;
+    $scope.cartCount = (ngCart.$cart.items.length);
     ngCart.setTaxRate(7.5);
     ngCart.setShipping(2.99);
-
 
 
 
@@ -229,6 +229,16 @@ angular.module('starter.controllers', ['ngCart', 'ngCordova'])
     /*ionicMaterialMotion.fadeSlideInRight({
         selector: '.animate-fade-slide-in .item'
     });*/
+
+})
+
+.controller('GalleryFABCtrl', function($scope, $stateParams, $timeout, Menu, Cusines, ngCart, ionicMaterialInk, ionicMaterialMotion) {
+    $scope.cartCount = (ngCart.getTotalItems());
+
+   $timeout(function () {
+                        document.getElementById('fab-gallery').classList.toggle('on');
+                    }, 900);
+    
 
 })
 

@@ -1,18 +1,18 @@
 <ion-view view-title="{{menu.name}}">
 
     <ion-content ng-class="{expanded:isExpanded}">
-    <ngcart-count></ngcart-count>
+        <div style="height:40px">&nbsp;</div>
         <div class="row responsive-sm">                
-            <div class="col col-50" ng-repeat="item in food_details">
+            <div class="col col-50" style="margin: 0px;" ng-repeat="item in food_details">
                 <ngcart-addtocart id="{{item.id}}" name="{{item.name}}" price="{{item.price}}" quantity="1" quantity-max="5"><img ng-src="{{item.face}}" width="100%"/>
 
                     <div class="" style="position: relative;
-                            font-size: 24px;
+                            font-size: 18px;
                             color: white;">{{item.name}}
                     </div>
 
                     <div class="" style="position: relative;
-                            font-size: 18px;
+                            font-size: 16px;
                             padding-top:5px;
                             color: white;">&#8377;{{item.price}}
                     </div>
@@ -51,11 +51,11 @@
     right: 5%;"><i class="icon ion-plus"></i></button>
 </div>
 
-<div style="position: absolute;bottom: 11px;right: 5px;font-size: 24px;color: white;">
-    <div style="display:inline" class="ion-minus-circled" ng-class="{'disabled':item.getQuantity()==1}"
-        ng-click="item.setQuantity(-1, true)"></div>&nbsp;&nbsp;
-    {{ item.getQuantity() | number }}&nbsp;&nbsp;
-    <div style="display:inline" class="ion-plus-circled" ng-click="item.setQuantity(1, true)"></div>
+<div ng-show="ngCart.getItemById(id).getQuantity()>0" style="position: absolute;bottom: 6px;right: 5px;font-size: 22px;color: white;padding: 5px">
+    <div style="display:inline" class="ion-minus-circled" ng-class="{'disabled':ngCart.getItemById(id).getQuantity()==1}"
+        ng-click="ngCart.getItemById(id).setQuantity(-1, true)"></div><span>
+    {{ ngCart.getItemById(id).getQuantity() | number }}</span>
+    <div style="display:inline" class="ion-plus-circled" ng-click="ngCart.getItemById(id).setQuantity(1, true)"></div>
 </div>
 
 
@@ -63,9 +63,9 @@
 
 </div>
 </script>
-<script type="text/ng-template" id="template/ngCart/cartcount.html"><div class="row">
-    <div class="col-md-6">
-     <span class="glyphicon glyphicon-shopping-cart" ng-style="(ngCart.getTotalItems()>0)?{'color':'red'}:{'color':'grey'}"></span>
+<script type="text/ng-template" id="template/ngCart/cartcount.html"><div style="    width: 100%;
+    position: absolute;
+    top: 25px;">
     {{ ngCart.getTotalItems() }}
     </div>
 </script>
