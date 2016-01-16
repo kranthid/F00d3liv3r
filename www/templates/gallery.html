@@ -6,19 +6,16 @@
             <div class="col col-50" ng-repeat="item in food_details">
                 <ngcart-addtocart id="{{item.id}}" name="{{item.name}}" price="{{item.price}}" quantity="1" quantity-max="5"><img ng-src="{{item.face}}" width="100%"/>
 
-                    <label class="" style="position: absolute;
-                            top: 8%;
-                            font-size: 28px;
-                            color: white;
-                            left: 7%;">{{item.name}}
-                    </label>
+                    <div class="" style="position: relative;
+                            font-size: 24px;
+                            color: white;">{{item.name}}
+                    </div>
 
-                    <label class="" style="position: absolute;
-                            top: 28%;
-                            font-size: 28px;
-                            color: white;
-                            right: 7%;">&#8377;{{item.price}}
-                    </label>
+                    <div class="" style="position: relative;
+                            font-size: 18px;
+                            padding-top:5px;
+                            color: white;">&#8377;{{item.price}}
+                    </div>
 
                 </ngcart-addtocart>
             </div>
@@ -27,7 +24,7 @@
 </ion-view>
 
 <script type="text/ng-template" id="template/ngCart/addtocart.html">
-<div ng-show="attrs.id" style="position: relative;">
+<div ng-show="attrs.id" style="position: relative; border: 6px solid #222;background-color: #222;">
     <div style="position: relative;">
         
         <a class="btn btn-sm btn-primary"
@@ -40,19 +37,30 @@
     '-webkit-transform': 'rotate(45deg)',
     '-o-transform': 'rotate(45deg)',
     '-ms-transform': 'rotate(45deg)',
-    'transform': 'rotate(45deg)'}:{
-    '-moz-transform': 'rotate(0deg)',
+    'transform': 'rotate(45deg)'}
+    :{'-moz-transform': 'rotate(0deg)',
     '-webkit-transform': 'rotate(0deg)',
     '-o-transform': 'rotate(0deg)',
     '-ms-transform': 'rotate(0deg)',
     'transform': 'rotate(0deg)'} " 
     style="transform: translate3d(0%, 0px, 0px);    
     position: absolute;
-    bottom: 7%;
+    top: 7%;
     font-size: 28px;
     pointer-events: none;
-    left: 5%;"><i class="icon ion-plus"></i></button>
+    right: 5%;"><i class="icon ion-plus"></i></button>
 </div>
+
+<div style="position: absolute;bottom: 11px;right: 5px;font-size: 24px;color: white;">
+    <div style="display:inline" class="ion-minus-circled" ng-class="{'disabled':item.getQuantity()==1}"
+        ng-click="item.setQuantity(-1, true)"></div>&nbsp;&nbsp;
+    {{ item.getQuantity() | number }}&nbsp;&nbsp;
+    <div style="display:inline" class="ion-plus-circled" ng-click="item.setQuantity(1, true)"></div>
+</div>
+
+
+
+
 </div>
 </script>
 <script type="text/ng-template" id="template/ngCart/cartcount.html"><div class="row">

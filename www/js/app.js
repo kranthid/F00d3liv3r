@@ -19,7 +19,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         }
         console.log("window.Connection:"+window.Connection);
         // Check for network connection
-        if(window.Connection) {
+        /*if(window.Connection) {
             console.log("navigator.connection.type::"+navigator.connection.type);
           if(navigator.connection.type == Connection.NONE) {
             $ionicPopup.confirm({
@@ -32,7 +32,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
               }
             });
           }
-        }
+        }*/
     });
 })
 
