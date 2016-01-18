@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col">
             	 <!-- <button class="btn btn-primary" ng-click="payMoney()">Proceed to pay</button> -->
-                 <button ui-sref="app.ordertrack" ng-click="payMoney($('#address'))" class="button button-full button-assertive ink">Place Order</button>
+                 <button ui-sref="ordertrack" ng-click="payMoney($('#address'))" class="button button-full button-assertive ink">Place Order</button>
         	</div>
         </div>
   </ion-content>
@@ -26,8 +26,8 @@
 
     <div class="item card-item">
         <div class="row">
-            <div class="col col-50 item-text-wrap">MIN. DELIVERY AMOUNT: &#8377;99</div>
-                <div class="col item-text-wrap" style="text-align:right">EST. DELIVERY TIME: 42 MIN</div>
+            <div class="col col-50 item-text-wrap deliver-amt">MIN. DELIVERY AMOUNT: &#8377;99</div>
+                <div class="col item-text-wrap deliver-time" style="text-align:right">EST. DELIVERY TIME: 42 MIN</div>
         </div>
         <div class="card">
             <div class="row item-divider">
@@ -86,7 +86,7 @@
                 <div class="col">DELIVERY ADDRESS</div>
             </div>
             <div class="row">
-                <input ng-model="shippingAddress" id="address" style="width: 100%; height: 20%;" type="text" placeholder="getting uraddress">
+                <input ng-model="shippingAddress" id="address" style="width: 100%; height: 28px;" type="text" placeholder="">
             </div>
         </div>
     </div>
@@ -97,9 +97,7 @@
                 <div class="col">APPLY A COUPON CODE</div>
             </div>
             <div class="row">
-                <div class="col">
                 <input type="text"></input>
-                </div>
             </div>
         </div>
     </div>

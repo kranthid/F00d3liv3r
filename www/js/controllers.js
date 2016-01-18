@@ -91,7 +91,7 @@ angular.module('starter.controllers', ['ngCart', 'ngCordova'])
 
 .controller('MainActivityCtrl', function($scope, $stateParams, $state, $timeout, $cordovaGeolocation, $ionicHistory, $ionicPopup) {
     var geocoder = new google.maps.Geocoder();
-    var posOptions = {timeout: 3000, enableHighAccuracy: true};
+    var posOptions = {timeout: 5000, enableHighAccuracy: true};
       $cordovaGeolocation
         .getCurrentPosition(posOptions)
         .then(function (position) {
@@ -139,6 +139,30 @@ angular.module('starter.controllers', ['ngCart', 'ngCordova'])
             })
       }
 })
+
+.controller('RatingCtrl', function($scope) {
+    $scope.rating = 5;
+
+    $scope.rateFunction = function( rating )
+    {
+           var _url = 'your service url';
+     
+             var data = {
+               rating: rating
+             };
+             alert('Rating selected - ' + rating);
+             /*$http.post( _url, angular.toJson(data), {cache: false} )
+              .success( function( data )
+              {
+               success(data);
+              })
+              .error(function(data){
+                error(data);
+              });*/
+     
+    };
+
+  })
 
 .controller('LoginCtrl', function($scope, $timeout, $stateParams, ionicMaterialInk) {
     //$scope.$parent.clearFabs();

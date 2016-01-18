@@ -1,6 +1,11 @@
-<ion-view view-title="Track Order" align-title="left">
+<ion-header-bar class="bar-assertive-900">
+  <h1 class="title">Track Order</h1>
+  <div style="position:absolute;right:10px;top:10px;">
+  <a ui-sref="app.menu" ><i class="icon ion-close"></i></a>
+  </div>
+</ion-header-bar>
     <ion-content ng-class="false">
-    <div class="content has-header">
+    <div class="content has-header text-color-white">
         <div class="row">
             <div class="col" style="text-align:center">ORDER ID <br/> 12345</div>
         </div>
@@ -11,9 +16,9 @@
             <div class="col" style="text-align:center">ORDER STATUS</div>
         </div>
         <div class="row">
-            <div class="col" style="text-align:center"><span>RECEIVED</span><br/><br/><i class="icon ion-chatbubble muted"></i></div> 
-            <div class="col" style="text-align:center">COOKED</div>
-            <div class="col" style="text-align:center">OFF TO YOU</div>
+            <div id="received" class="col border-bottom-white" style="text-align:center">RECEIVED</div> 
+            <div id="cooked" class="col border-bottom-grey" style="text-align:center">COOKED</div>
+            <div id="off-to-you" class="col border-bottom-grey" style="text-align:center">OFF TO YOU</div>
         </div>
     </div>
     </ion-content>

@@ -19,7 +19,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         }
         console.log("window.Connection:"+window.Connection);
         // Check for network connection
-        /*if(window.Connection) {
+        if(window.Connection) {
             console.log("navigator.connection.type::"+navigator.connection.type);
           if(navigator.connection.type == Connection.NONE) {
             $ionicPopup.confirm({
@@ -32,7 +32,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
               }
             });
           }
-        }*/
+        }
     });
 })
 
@@ -63,6 +63,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         url: '/login',
         templateUrl: 'templates/login.html',
         controller: 'LoginCtrl'
+    })
+
+    .state('ordertrack', {
+        url: '/ordertrack',
+        templateUrl: 'templates/order-track.html'
+    })
+
+    .state('feedback', {
+        url: '/feedback',
+        templateUrl: 'templates/feedback.html'
     })
 
     .state('app.menu', {
@@ -107,17 +117,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         }
     })
 
-    .state('app.ordertrack', {
-        url: '/ordertrack',
-        views: {
-            'menuContent': {
-                
-                templateUrl: 'templates/order-track.html'
-            }
-        }
-        
-    })
-
     .state('app.profile', {
         url: '/profile',
         views: {
@@ -138,4 +137,44 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/mainactivity');
+})
+.directive('starRating',
+function() {
+return {
+restrict : 'A',
+template : '<ul class="rating">'+ ' <li ng-repeat="star in stars" ng-class="star" ng-click="toggle($index)">'
+   + '  <i class="icon ion-ios-star"></i>'
+   + ' </li>'
+   + '</ul>',
+scope : {
+ ratingValue : '=',
+ max : '=',
+ onRatingSelected : '&'
+},
+link : function(scope, elem, attrs) {
+ var updateStars = function() {
+  scope.stars = [];
+  for ( var i = 0; i < scope.max; i++) {
+   scope.stars.push({
+    filled : i < scope.ratingValue
+   });
+  }
+ };
+ 
+ scope.toggle = function(index) {
+  scope.ratingValue = index + 1;
+  scope.onRatingSelected({
+   rating : index + 1
+  });
+ };
+ 
+ scope.$watch('ratingValue',
+  function(oldVal, newVal) {
+   if (newVal) {
+    updateStars();
+   }
+  }
+ );
+}
+};
 });
