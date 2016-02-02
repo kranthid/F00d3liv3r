@@ -11,7 +11,7 @@
             </div>
         </div>
 
-        <div ng-model="showSignup">
+        <div ng-model="showSignup" ng-controller='LoginCtrl'>
         <!-- Login -->
         <div ng-show="showSignup">
             <div class="list">
@@ -21,20 +21,20 @@
                 <div style="text-align: right; margin: 2%;"><a href="" ng-click="">Forgot password?</a></div>
             </div>
             <div class="padding">
-                <button ui-sref="feedback" class="button button-full button-assertive ink">Login</button>
+                <button ui-sref="app.menu" class="button button-full button-assertive ink">Login</button>
             </div> 
         </div>
         <!-- registarion -->
         <div ng-hide="showSignup">
             <div class="list">
-                <input placeholder="Username" highlight-color="balanced" type="text"></input>
-                <input placeholder="Mobile Number" highlight-color="balanced" type="text"></input>
-                <input placeholder="Email Address" highlight-color="balanced" type="email"></input>
-                <input placeholder="Password" highlight-color="energized" type="password"></input>
+                <input placeholder="Username" ng-model="user.name" highlight-color="balanced" type="text"></input>
+                <input placeholder="Mobile Number" ng-model="user.mobile" highlight-color="balanced" type="text"></input>
+                <input placeholder="Email Address" ng-model="user.email" highlight-color="balanced" type="email"></input>
+                <input placeholder="Password" ng-model="user.password" highlight-color="energized" type="password"></input>
                 <div style="text-align: right; margin: 2%;"><a href="" ng-click="showSignup=true">Already a member? Login</a></div>
             </div>
             <div class="padding">
-                <button ui-sref="app.menu" class="button button-full button-assertive ink">Sign Up</button>
+                <button ng-click="signupUser(user)" class="button button-full button-assertive ink">Sign Up</button>
             </div> 
         </div>
         </div>

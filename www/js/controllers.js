@@ -164,12 +164,24 @@ angular.module('starter.controllers', ['ngCart', 'ngCordova'])
 
   })
 
-.controller('LoginCtrl', function($scope, $timeout, $stateParams, ionicMaterialInk) {
+.controller('LoginCtrl', function($scope, $timeout, $stateParams, ionicMaterialInk,SignUpIn,$state) {
     //$scope.$parent.clearFabs();
 
     $scope.showSignup = true;
 
-
+    $scope.signupUser = function(userData){
+        return SignUpIn.registerUser(userData).then(function(res){
+            if(res.data.email && res.data.username){
+                localStorage.setItem("username",res.data.username)
+                localStorage.setItem("useremail",res.data.email)
+                localStorage.setItem("usermobile",res.data.mobile)
+                $state.go('app.menu');
+            }
+        },function(err){
+            console.log("err is >>>",err);
+            $scope.signupStatus = "Please try after some time"
+        })
+    }
     $timeout(function() {
         //$scope.$parent.hideHeader();
     }, 0);
@@ -266,7 +278,7 @@ angular.module('starter.controllers', ['ngCart', 'ngCordova'])
 
 })
 
-.controller('CartCtrl', function($scope, ngCart, ionicMaterialInk, ionicMaterialMotion, $rootScope) {
+.controller('CartCtrl', function($scope, ngCart, ionicMaterialInk, ionicMaterialMotion, $rootScope,Orders) {
     $scope.title="Cart"
     $scope.$parent.showHeader();
     $scope.$parent.clearFabs();
@@ -300,9 +312,24 @@ angular.module('starter.controllers', ['ngCart', 'ngCordova'])
     }
 
   $scope.payMoney = function(shippingAddress){
-    console.log("address is >>>",shippingAddress);
+    console.log("address is >>>",ngCart.toObject());
     console.log("This data has to send for the server >>>"+JSON.stringify(ngCart.toObject()));
-  }
+    var details = {wholeObj:JSON.stringify(ngCart.toObject())}
+    var orderObj = {
+        email: localStorage.getItem("useremail"),
+        contact:localStorage.getItem("usermobile"),
+        address:document.getElementById('address').value,
+        details:JSON.stringify(ngCart.toObject())
+        }
+        return Orders.makeOrder(orderObj).then(function(res){
+            if(res.data){
+                console.log("Order was done successfully >>",res.data);
+            }
+        },function(err){
+            console.log("err is >>>",err);
+            $scope.orderStatus = "Please try after some time"
+        })
+    }
 })
 
 ;

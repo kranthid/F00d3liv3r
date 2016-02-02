@@ -129,5 +129,37 @@ angular.module('starter.services', [])
     }
   };
 
-});
+})
+.factory('SignUpIn',['$http','$q', function($http,$q)  {
+  
+  return {
+    registerUser: function(userData) {
+      return $http.post('/api/forecast',userData).success(function(retData){
+        console.log("Getting SignUp response >>>",retData);
+        return retData;
+      }).error(function(err){
+        console.log("Some thing went wrong >>>",err);
+        return [];
+      });
+    },
+    loginUser: function(loc) {
+      location = loc;
+    }
+  };
 
+}])
+.factory('Orders',['$http','$q', function($http,$q)  {
+  
+  return {
+    makeOrder: function(orderData) {
+      return $http.post('/order',orderData).success(function(retData){
+        console.log("Getting orders response >>>",retData);
+        return retData;
+      }).error(function(err){
+        console.log("Some thing went wrong >>>",err);
+        return [];
+      });
+    }
+  };
+
+}]);
