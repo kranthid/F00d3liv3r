@@ -315,11 +315,13 @@ angular.module('starter.controllers', ['ngCart', 'ngCordova'])
     console.log("address is >>>",ngCart.toObject());
     console.log("This data has to send for the server >>>"+JSON.stringify(ngCart.toObject()));
     var details = {wholeObj:JSON.stringify(ngCart.toObject())}
+    var detailsArr = [];
+    detailsArr.push(ngCart.toObject());
     var orderObj = {
         email: localStorage.getItem("useremail"),
         contact:localStorage.getItem("usermobile"),
         address:document.getElementById('address').value,
-        details:JSON.stringify(ngCart.toObject())
+        details:detailsArr
         }
         return Orders.makeOrder(orderObj).then(function(res){
             if(res.data){
