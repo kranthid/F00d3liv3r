@@ -4,5 +4,13 @@
   "proxies": [{
      "path": "/order",
      "proxyUrl": "http://localhost:9899/api/orders"
+  },
+  {
+     "path": "/api/signup",
+     "proxyUrl": "http://localhost:9899/api/users/signup"
+  },
+  {
+     "path": "/login",
+     "proxyUrl": "http://localhost:9899/auth/local"
   }]
 }

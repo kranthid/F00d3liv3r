@@ -134,7 +134,7 @@ angular.module('starter.services', [])
   
   return {
     registerUser: function(userData) {
-      return $http.post('/api/forecast',userData).success(function(retData){
+      return $http.post('/api/signup',userData).success(function(retData){
         console.log("Getting SignUp response >>>",retData);
         return retData;
       }).error(function(err){
@@ -142,8 +142,14 @@ angular.module('starter.services', [])
         return [];
       });
     },
-    loginUser: function(loc) {
-      location = loc;
+    loginUser: function(loginData) {
+      return $http.post('/login?mapp=true',loginData).success(function(retData){
+        console.log("Getting Login response >>>",retData);
+        return retData;
+      }).error(function(err){
+        console.log("Some thing went wrong >>>",err);
+        return [];
+      });
     }
   };
 

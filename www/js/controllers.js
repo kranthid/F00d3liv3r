@@ -182,6 +182,19 @@ angular.module('starter.controllers', ['ngCart', 'ngCordova'])
             $scope.signupStatus = "Please try after some time"
         })
     }
+    $scope.loginUser = function(userData){
+        return SignUpIn.loginUser(userData).then(function(res){
+            if(res.data.email && res.data.username){
+                localStorage.setItem("username",res.data.username)
+                localStorage.setItem("useremail",res.data.email)
+                localStorage.setItem("usermobile",res.data.mobile)
+                $state.go('app.menu');
+            }
+        },function(err){
+            console.log("err is >>>",err);
+            $scope.loginStatus = "Please try after some time"
+        })        
+    }
     $timeout(function() {
         //$scope.$parent.hideHeader();
     }, 0);
